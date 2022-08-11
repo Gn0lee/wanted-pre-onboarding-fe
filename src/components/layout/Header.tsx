@@ -14,5 +14,5 @@ const containerSt = css`
   width: 100%;
   height: 4rem;
 
-  background-color: #d9d9d4;
+  background-color: #fafafa;
 `;

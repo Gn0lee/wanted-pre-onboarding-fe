@@ -1,3 +1,5 @@
 import { Header, Footer } from './layout';
 
-export { Header, Footer };
+import TextInput from './TextInput';
+
+export { Header, Footer, TextInput };

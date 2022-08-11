@@ -1,14 +1,17 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { useState } from 'react';
+
 import { css, jsx } from '@emotion/react';
+import { Outlet } from 'react-router-dom';
 
-import { TextInput } from 'components';
+import { Header, Footer } from 'components';
 
-export default function SignInPage() {
+export default function Layout() {
   return (
     <div css={containerSt}>
-      <TextInput />
+      <Header />
+      <Outlet />
+      <Footer />
     </div>
   );
 }
