@@ -1,0 +1,13 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2020": true
+  },
+  "extends": ["react-app", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": 11, //es2020
+    "sourceType": "module"
+  },
+  "rules": {}
+}
