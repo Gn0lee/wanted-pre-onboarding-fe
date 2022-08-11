@@ -81,13 +81,18 @@ const inputSt = css`
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  border: 1px solid #d1cfc9;
+
   padding-left: 1rem;
   padding-right: 1rem;
+
   width: 100%;
-  line-height: 160%;
-  letter-spacing: 0.0128rem;
+  height: 3rem;
+
+  border: 1px solid #d1cfc9;
+  border-radius: 8px;
+
   background: #fafafa;
+
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;
