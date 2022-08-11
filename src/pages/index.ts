@@ -1,5 +1,6 @@
 import Layout from './Layout';
 
-import SignInPage from './SigninPage';
+import SignInPage from './SignInPage';
+import SignUpPage from './SignUpPage';
 
-export { Layout, SignInPage };
+export { Layout, SignInPage, SignUpPage };
