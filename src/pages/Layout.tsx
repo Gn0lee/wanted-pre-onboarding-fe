@@ -1,16 +1,37 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-
+import { useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { Header, Footer } from 'components';
 
 export default function Layout() {
+  const [isPathTodo, setIsPathTodo] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location.pathname);
+    if (location.pathname === '/todo') {
+      setIsPathTodo(true);
+    } else {
+      setIsPathTodo(false);
+    }
+    setIsLoading(false);
+
+    return () => {
+      setIsLoading(true);
+    };
+  }, [location]);
+
+  if (isLoading) return <div css={containerSt}></div>;
+
   return (
     <div css={containerSt}>
       <Header />
-      <div css={outletWrapSt}>
+      <div css={outletWrapSt(isPathTodo)}>
         <Outlet />
       </div>
       <Footer />
@@ -31,8 +52,8 @@ const containerSt = css`
   background-color: #f5f5f5;
 `;
 
-const outletWrapSt = css`
-  max-width: 25rem;
+const outletWrapSt = (isPathTodo: boolean) => css`
+  max-width: ${isPathTodo ? '30rem' : '25rem'};
   width: 100%;
 
   height: fit-content;

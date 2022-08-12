@@ -8,7 +8,7 @@ import { TextInput, Button } from 'components';
 export default function SignUpPage() {
   return (
     <div css={containerSt}>
-      <h2>회원가입</h2>
+      <h1>회원가입</h1>
       <div css={inputWrapSt}>
         <TextInput label="email" valueType="text" />
         <TextInput label="password" valueType="password" />
@@ -34,6 +34,10 @@ const containerSt = css`
 
   width: 100%;
   height: 100%;
+
+  & > h1 {
+    margin-bottom: 1rem;
+  }
 `;
 
 const inputWrapSt = css`

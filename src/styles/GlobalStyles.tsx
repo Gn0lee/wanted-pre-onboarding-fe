@@ -2,11 +2,13 @@
 /** @jsx jsx */
 
 import { Global, css, jsx } from '@emotion/react';
+import emotionNormalize from 'emotion-normalize';
 
 export default function GlobalStyles() {
   return (
     <Global
       styles={css`
+        ${emotionNormalize}
         a {
           text-decoration: none;
           color: inherit;
@@ -56,6 +58,7 @@ export default function GlobalStyles() {
         h1 {
           font-size: 2em;
           margin: 0 0;
+          font-weight: 700;
         }
 
         p {
