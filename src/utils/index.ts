@@ -9,10 +9,16 @@ import {
   validatePassword,
 } from './validateFunction';
 
-export { rEmail, rPassword };
+import { isAxiosError } from './axiosUtils';
 
-export { validateEmail, validatePassword };
-
-export { TOKEN_KEY, API_ADDRESS };
+export {
+  TOKEN_KEY,
+  API_ADDRESS,
+  validateEmail,
+  validatePassword,
+  rEmail,
+  rPassword,
+  isAxiosError,
+};
 
 export type { ValidateResult, validation };

@@ -1,3 +1,3 @@
-import singInApi from './signIn.api';
+import signInApi from './signIn.api';
 
-export { singInApi };
+export { signInApi };

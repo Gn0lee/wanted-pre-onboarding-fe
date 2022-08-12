@@ -6,7 +6,9 @@ import { css, jsx } from '@emotion/react';
 import { useValueValidate } from 'hooks';
 import { TextInput, Button } from 'components';
 
-import { validateEmail, validatePassword } from 'utils';
+import { signInApi } from 'api';
+import { SignInApiError } from 'types';
+import { validateEmail, validatePassword, isAxiosError } from 'utils';
 
 export default function SignInInput() {
   const {
@@ -26,6 +28,18 @@ export default function SignInInput() {
   } = useValueValidate(validatePassword);
 
   const [btnDisable, setBtnDisable] = useState(true);
+
+  const handleClickSignInBtn = async () => {
+    try {
+      const res = await signInApi({ email, password });
+
+      console.log(res);
+    } catch (err) {
+      if (isAxiosError<SignInApiError>(err)) {
+        alert(err.response?.data.message);
+      }
+    }
+  };
 
   useEffect(() => {
     if (isEmailValid && isPasswordValid) {
@@ -59,6 +73,7 @@ export default function SignInInput() {
         height="3rem"
         color="#FAFAFA"
         disabled={btnDisable}
+        onClick={handleClickSignInBtn}
       >
         로그인
       </Button>

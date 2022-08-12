@@ -7,7 +7,7 @@ const useValueValidate = (validateFn: (value: string) => ValidateResult) => {
   const [isValid, setIsValid] = useState(false);
   const [validateResult, setValidateResult] = useState<ValidateResult>({
     message: '',
-    validation: 'none',
+    validation: 'failed',
   });
 
   const handleChangeValue = (
