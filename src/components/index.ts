@@ -1,6 +1,15 @@
 import { Header, Footer } from './layout';
 
-import TextInput from './TextInput';
-import Button from './Button';
+import { TextInput, Button } from './common';
 
-export { Header, Footer, TextInput, Button };
+import { SignInUpperContent, SignInInput, SignUpInput } from './auth';
+
+export {
+  Header,
+  Footer,
+  TextInput,
+  Button,
+  SignInUpperContent,
+  SignInInput,
+  SignUpInput,
+};
