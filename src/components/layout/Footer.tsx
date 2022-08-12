@@ -10,7 +10,7 @@ export default function Footer() {
   return (
     <div css={containerSt}>
       <div>Wanted</div>
-      <div>Author: Gnolee</div>
+      <div>Author: Gn0lee</div>
     </div>
   );
 }
