@@ -1,3 +1,5 @@
 import { SignInApiRes, SignInApiError } from './SignIn.Api.Types';
 
-export type { SignInApiRes, SignInApiError };
+import { SignUpApiRes, SignUpApiError } from './SignUp.Api.Types';
+
+export type { SignInApiRes, SignInApiError, SignUpApiRes, SignUpApiError };

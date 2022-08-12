@@ -23,7 +23,7 @@ const useValueValidate = (validateFn: (value: string) => ValidateResult) => {
     } else {
       setIsValid(true);
     }
-  }, [enteredValue]);
+  }, [validateResult.validation]);
 
   return {
     value: enteredValue,

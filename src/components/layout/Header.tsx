@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 /**
  * description: 헤더 컴포넌트
+ * todo: 로그아웃 아이콘 및 동작 추가
  */
 export default function Header() {
   return (
