@@ -2,6 +2,23 @@ import { rEmail, rPassword } from './regex';
 
 import { TOKEN_KEY, API_ADDRESS } from './contants';
 
-export { rEmail, rPassword };
+import {
+  ValidateResult,
+  validation,
+  validateEmail,
+  validatePassword,
+} from './validateFunction';
 
-export { TOKEN_KEY, API_ADDRESS };
+import { isAxiosError } from './axiosUtils';
+
+export {
+  TOKEN_KEY,
+  API_ADDRESS,
+  validateEmail,
+  validatePassword,
+  rEmail,
+  rPassword,
+  isAxiosError,
+};
+
+export type { ValidateResult, validation };

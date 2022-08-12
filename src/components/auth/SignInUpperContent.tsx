@@ -2,14 +2,23 @@
 /** @jsx jsx */
 import React from 'react';
 import { css, jsx } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignInUpperContent() {
+  const navigate = useNavigate();
+
+  const handleClickSignUpBtn = () => {
+    navigate('/signup');
+  };
+
   return (
     <React.Fragment>
       <h1>로그인</h1>
       <div css={signUpWrapSt}>
         <div>회원이 아니라면?</div>
-        <div css={signUpBtnSt}>회원가입</div>
+        <div css={signUpBtnSt} onClick={handleClickSignUpBtn}>
+          회원가입
+        </div>
       </div>
     </React.Fragment>
   );

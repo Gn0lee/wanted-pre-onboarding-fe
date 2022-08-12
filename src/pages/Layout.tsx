@@ -13,7 +13,6 @@ export default function Layout() {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location.pathname);
     if (location.pathname === '/todo') {
       setIsPathTodo(true);
     } else {

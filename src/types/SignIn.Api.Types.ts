@@ -4,3 +4,9 @@ export interface SignInApiRes {
   message?: string;
   error?: string;
 }
+
+export interface SignInApiError {
+  error: string;
+  statusCode: number;
+  message: string;
+}

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { SignInApiRes } from 'types';
 import { API_ADDRESS } from 'utils';
 
 export interface signInApiProps {
@@ -6,9 +7,9 @@ export interface signInApiProps {
   password: string;
 }
 
-export default async function singInApi({ email, password }: signInApiProps) {
-  const { data } = await axios.post(
-    `${API_ADDRESS}/auth/signin`,
+export default async function signInApi({ email, password }: signInApiProps) {
+  const { data } = await axios.post<SignInApiRes>(
+    `${API_ADDRESS}auth/signin`,
     {
       email,
       password,
