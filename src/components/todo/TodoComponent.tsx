@@ -5,23 +5,13 @@ import { css, jsx } from '@emotion/react';
 
 import { AiOutlineCheck, AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 
-export interface TodoComponentProps {
-  id: number;
-  todo: string;
-  isCompleted: boolean;
-  userId: number;
-}
+import { Todo } from 'types';
 
 /**
  * description: 할일 컴포넌트
  * todo: 수정 클릭시 수정모드 변환, 수정 api 연결, 수정 성공 시 할일 리스트 갱신
  */
-export default function TodoComponent({
-  id,
-  todo,
-  isCompleted,
-  userId,
-}: TodoComponentProps) {
+export default function TodoComponent({ id, todo, isCompleted, userId }: Todo) {
   return (
     <div key={id} css={todoContainerSt}>
       <div css={iconWrapSt}>

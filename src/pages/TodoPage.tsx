@@ -4,41 +4,14 @@ import React, { useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { AiOutlineCheck, AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
-import { CreateTodo } from 'components';
+import { CreateTodo, TodoList } from 'components';
 
 export default function TodoPage() {
-  const mockTodo = [
-    {
-      id: 1,
-      todo: 'todo2',
-      isCompleted: false,
-      userId: 1,
-    },
-    {
-      id: 2,
-      todo: 'todo3asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfsd',
-      isCompleted: true,
-      userId: 1,
-    },
-  ];
   return (
     <div css={containerSt}>
       <h1>Todo</h1>
       <CreateTodo />
-      <div css={todoWrapSt}>
-        {mockTodo.map(todo => (
-          <div key={todo.id} css={todoContainerSt}>
-            <div css={iconWrapSt}>
-              {todo.isCompleted && <AiOutlineCheck color="#24A147" size={25} />}
-            </div>
-            <div css={descrpSt(todo.isCompleted)}>{todo.todo}</div>
-            <div css={editDeleteWrapSt}>
-              <AiOutlineEdit size={25} />
-              <AiOutlineDelete size={25} />
-            </div>
-          </div>
-        ))}
-      </div>
+      <TodoList />
     </div>
   );
 }
