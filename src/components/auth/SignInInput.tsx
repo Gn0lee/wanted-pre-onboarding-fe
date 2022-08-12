@@ -2,13 +2,21 @@
 /** @jsx jsx */
 import React, { useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { useValueValidate } from 'hooks';
+import { login } from 'redux/accountInfoSlice';
 import { TextInput, Button } from 'components';
 
 import { signInApi } from 'api';
 import { SignInApiError } from 'types';
-import { validateEmail, validatePassword, isAxiosError } from 'utils';
+import {
+  validateEmail,
+  validatePassword,
+  isAxiosError,
+  TOKEN_KEY,
+} from 'utils';
 
 /**
  * author: Gn0
@@ -34,14 +42,19 @@ export default function SignInInput() {
 
   const [btnDisable, setBtnDisable] = useState(true);
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleClickSignInBtn = async () => {
     try {
       const res = await signInApi({ email, password });
 
-      console.log(res);
+      localStorage.setItem(TOKEN_KEY, res.access_token);
+      dispatch(login());
+      navigate('/todo');
     } catch (err) {
-      if (isAxiosError<SignInApiError>(err)) {
-        alert(err.response?.data.message);
+      if (isAxiosError<SignInApiError>(err) && err.response) {
+        alert(err.response.data.message);
       }
     }
   };

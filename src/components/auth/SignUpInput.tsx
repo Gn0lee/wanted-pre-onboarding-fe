@@ -1,24 +1,96 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { css, jsx } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
+import { useValueValidate } from 'hooks';
+import { login } from 'redux/accountInfoSlice';
 import { TextInput, Button } from 'components';
 
+import { signUpApi } from 'api';
+import { SignUpApiError } from 'types';
+import {
+  validateEmail,
+  validatePassword,
+  isAxiosError,
+  TOKEN_KEY,
+} from 'utils';
 /**
  * description: 이메일, 비밀번호 입력 컴포넌트
  * todo: 정규식 검사 및 버튼 클릭 로직 구현
  */
 export default function SignUpInput() {
+  const {
+    value: email,
+    returnMsg: emailHelpTxt,
+    returnValidation: emailValidation,
+    isValid: isEmailValid,
+    handleChangeValue: handleChangeEmail,
+  } = useValueValidate(validateEmail);
+
+  const {
+    value: password,
+    returnMsg: passwordHelpTxt,
+    returnValidation: passwordValidation,
+    isValid: isPasswordValid,
+    handleChangeValue: handleChangePassword,
+  } = useValueValidate(validatePassword);
+
+  const [btnDisable, setBtnDisable] = useState(true);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleClickSignUpBtn = async () => {
+    try {
+      const res = await signUpApi({ email, password });
+
+      localStorage.setItem(TOKEN_KEY, res.access_token);
+
+      dispatch(login());
+      navigate('/todo');
+    } catch (err) {
+      if (isAxiosError<SignUpApiError>(err) && err.response) {
+        alert(err.response.data.message);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (isEmailValid && isPasswordValid) {
+      setBtnDisable(false);
+    } else {
+      setBtnDisable(true);
+    }
+  }, [isEmailValid, isPasswordValid]);
+
   return (
     <div css={inputWrapSt}>
-      <TextInput label="email" valueType="text" />
-      <TextInput label="password" valueType="password" />
+      <TextInput
+        label="email"
+        valueType="text"
+        value={email}
+        helpText={emailHelpTxt}
+        validation={emailValidation}
+        onChange={handleChangeEmail}
+      />
+      <TextInput
+        label="password"
+        valueType="password"
+        validation={passwordValidation}
+        value={password}
+        helpText={passwordHelpTxt}
+        onChange={handleChangePassword}
+      />
       <Button
         width="100%"
         backgroundColor="#122E99"
         height="3rem"
         color="#FAFAFA"
+        disabled={btnDisable}
+        onClick={handleClickSignUpBtn}
       >
         회원가입
       </Button>

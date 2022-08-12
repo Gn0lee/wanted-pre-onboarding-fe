@@ -1,6 +1,9 @@
 export interface SignUpApiRes {
-  statusCode?: number;
-  access_token?: string;
-  error?: string;
-  message?: string;
+  access_token: string;
+}
+
+export interface SignUpApiError {
+  error: string;
+  statusCode: number;
+  message: string;
 }
