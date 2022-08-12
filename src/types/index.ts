@@ -6,6 +6,10 @@ import { GetTodosApiRes, GetTodosApiError, Todo } from './GetTodos.Api.Types';
 
 import { CreateTodoApiRes, CreateTodoApiError } from './CreateTodo.Api.Types';
 
+import { UpdateTodoApiRes, UpdateTodoApiError } from './UpdateTodo.Api.Types';
+
+import { DeleteTodoApiRes, DeleteTodoApiError } from './DeleteTodo.Api.Types';
+
 export type {
   SignInApiRes,
   SignInApiError,
@@ -16,4 +20,8 @@ export type {
   Todo,
   CreateTodoApiError,
   CreateTodoApiRes,
+  UpdateTodoApiError,
+  UpdateTodoApiRes,
+  DeleteTodoApiError,
+  DeleteTodoApiRes,
 };
