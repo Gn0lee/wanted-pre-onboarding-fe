@@ -3,6 +3,9 @@
 
 import { css, jsx } from '@emotion/react';
 
+/**
+ * description: 헤더 컴포넌트
+ */
 export default function Header() {
   return (
     <div css={containerSt}>

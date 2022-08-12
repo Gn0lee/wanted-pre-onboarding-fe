@@ -5,6 +5,10 @@ import { css, jsx } from '@emotion/react';
 
 import { TextInput, Button } from 'components';
 
+/**
+ * description: 이메일, 비밀번호 입력 컴포넌트
+ * todo: 정규식 검사 및 버튼 클릭 로직 구현
+ */
 export default function SignUpInput() {
   return (
     <div css={inputWrapSt}>

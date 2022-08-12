@@ -16,6 +16,9 @@ export interface ButtonProps extends ButtonStyleProps {
   onClick?: React.MouseEventHandler;
 }
 
+/**
+ * description: 버튼
+ */
 export default function Button({
   children,
   disabled = false,

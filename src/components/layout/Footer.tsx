@@ -3,6 +3,9 @@
 
 import { css, jsx } from '@emotion/react';
 
+/**
+ * description: 푸터 컴포넌트
+ */
 export default function Footer() {
   return (
     <div css={containerSt}>

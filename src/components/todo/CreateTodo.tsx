@@ -5,6 +5,10 @@ import { css, jsx } from '@emotion/react';
 
 import { Button, TextInput } from 'components';
 
+/**
+ * description: 새로운 할일을 추가하는 컴포넌트
+ * todo: value 설정 ,api 연결, 추가 성공시 할일 리스트 갱신
+ */
 export default function CreateTodo() {
   return (
     <div css={createTodoWrapSt}>

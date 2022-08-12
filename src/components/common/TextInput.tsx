@@ -15,6 +15,9 @@ export interface TextInputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
+/**
+ * description: 텍스트 인풋
+ */
 export default function TextInput({
   label,
   placeholder,

@@ -10,6 +10,11 @@ import { signInApi } from 'api';
 import { SignInApiError } from 'types';
 import { validateEmail, validatePassword, isAxiosError } from 'utils';
 
+/**
+ * author: Gn0
+ * description: 이메일, 비밀번호 정규식 검사에 따른 validation 변경, 클릭시 signin api 호출
+ * todo: 로그인 성공 후 로컬스토리지에 토큰 저장 및 todo로 이동
+ */
 export default function SignInInput() {
   const {
     value: email,

@@ -4,6 +4,9 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * description: 로그인 상단 요소 컴포넌트
+ */
 export default function SignInUpperContent() {
   const navigate = useNavigate();
 
