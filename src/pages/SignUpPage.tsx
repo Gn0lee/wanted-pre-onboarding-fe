@@ -3,24 +3,13 @@
 import React, { useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
-import { TextInput, Button } from 'components';
+import { SignUpInput } from 'components';
 
 export default function SignUpPage() {
   return (
     <div css={containerSt}>
       <h1>회원가입</h1>
-      <div css={inputWrapSt}>
-        <TextInput label="email" valueType="text" />
-        <TextInput label="password" valueType="password" />
-        <Button
-          width="100%"
-          backgroundColor="#122E99"
-          height="3rem"
-          color="#FAFAFA"
-        >
-          회원가입
-        </Button>
-      </div>
+      <SignUpInput />
     </div>
   );
 }
@@ -38,12 +27,4 @@ const containerSt = css`
   & > h1 {
     margin-bottom: 1rem;
   }
-`;
-
-const inputWrapSt = css`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-
-  width: 18rem;
 `;
