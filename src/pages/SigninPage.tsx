@@ -8,7 +8,7 @@ import { TextInput, Button } from 'components';
 export default function SignInPage() {
   return (
     <div css={containerSt}>
-      <h2>로그인</h2>
+      <h1>로그인</h1>
       <div css={signUpWrapSt}>
         <div>회원이 아니라면?</div>
         <div css={signUpBtnSt}>회원가입</div>
@@ -38,6 +38,10 @@ const containerSt = css`
 
   width: 100%;
   height: 100%;
+
+  & > h1 {
+    margin-bottom: 1rem;
+  }
 `;
 
 const signUpWrapSt = css`
