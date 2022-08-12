@@ -1,7 +1,15 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { ReduxState } from 'redux/store';
+import { setTodos } from 'redux/todoSlice';
+import { getTodosApi } from 'api';
+import { GetTodosApiError } from 'types';
+import { isAxiosError } from 'utils';
 
 import { TodoComponent } from 'components';
 
@@ -10,23 +18,31 @@ import { TodoComponent } from 'components';
  * todo: 할일 조회 api 연결, redux 설정
  */
 export default function TodoList() {
-  const mockTodo = [
-    {
-      id: 1,
-      todo: 'todo2',
-      isCompleted: false,
-      userId: 1,
-    },
-    {
-      id: 2,
-      todo: 'todo3asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfsd',
-      isCompleted: true,
-      userId: 1,
-    },
-  ];
+  const { todos } = useSelector((state: ReduxState) => state.todoData);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await getTodosApi();
+        dispatch(setTodos(res));
+      } catch (err) {
+        if (isAxiosError<GetTodosApiError>(err) && err.response) {
+          alert(err.response.data.message);
+        }
+
+        if (err instanceof Error && err.message === 'no token') {
+          navigate('/');
+        }
+      }
+    })();
+  }, []);
+
   return (
     <div css={todoWrapSt}>
-      {mockTodo.map(todo => (
+      {todos.map(todo => (
         <TodoComponent {...todo} />
       ))}
     </div>
@@ -39,4 +55,7 @@ const todoWrapSt = css`
   gap: 1rem;
 
   width: 100%;
+  height: 100%;
+
+  overflow-y: auto;
 `;

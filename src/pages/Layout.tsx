@@ -52,9 +52,10 @@ const containerSt = css`
 `;
 
 const outletWrapSt = (isPathTodo: boolean) => css`
-  max-width: ${isPathTodo ? '30rem' : '25rem'};
+  padding: 0rem 4rem;
   width: 100%;
-
   height: fit-content;
+
+  max-width: ${isPathTodo ? '34rem' : '24rem'};
   min-height: calc(100% - 8rem);
 `;
