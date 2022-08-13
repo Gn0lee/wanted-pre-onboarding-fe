@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ReduxState } from 'redux/store';
 import { setTodos } from 'redux/todoSlice';
-import { setUserId } from 'redux/accountInfoSlice';
+import { setUserId, login } from 'redux/accountInfoSlice';
 import { getTodosApi } from 'api';
 import { GetTodosApiError } from 'types';
 import { isAxiosError } from 'utils';
@@ -29,7 +29,8 @@ export default function TodoList() {
         const res = await getTodosApi();
         const userId = res.at(0)?.userId;
 
-        if (userId) dispatch(setUserId(userId));
+        if (userId !== undefined) dispatch(setUserId(userId));
+        dispatch(login());
         dispatch(setTodos(res));
       } catch (err) {
         if (isAxiosError<GetTodosApiError>(err) && err.response) {
