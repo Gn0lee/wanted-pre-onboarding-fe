@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ReduxState } from 'redux/store';
 import { setTodos } from 'redux/todoSlice';
+import { setUserId } from 'redux/accountInfoSlice';
 import { getTodosApi } from 'api';
 import { GetTodosApiError } from 'types';
 import { isAxiosError } from 'utils';
@@ -27,6 +28,9 @@ export default function TodoList() {
     (async () => {
       try {
         const res = await getTodosApi();
+        const userId = res.at(0)?.userId;
+
+        if (userId) dispatch(setUserId(userId));
         dispatch(setTodos(res));
       } catch (err) {
         if (isAxiosError<GetTodosApiError>(err) && err.response) {
@@ -43,7 +47,7 @@ export default function TodoList() {
   return (
     <div css={todoWrapSt}>
       {todos.map(todo => (
-        <TodoComponent {...todo} />
+        <TodoComponent {...todo} key={todo.id} />
       ))}
     </div>
   );
