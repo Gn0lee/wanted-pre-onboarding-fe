@@ -13,7 +13,7 @@ import { Todo } from 'types';
  */
 export default function TodoComponent({ id, todo, isCompleted, userId }: Todo) {
   return (
-    <div key={id} css={todoContainerSt}>
+    <div css={todoContainerSt}>
       <div css={iconWrapSt}>
         {isCompleted && <AiOutlineCheck color="#24A147" size={25} />}
       </div>

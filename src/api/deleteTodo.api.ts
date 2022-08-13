@@ -6,7 +6,7 @@ export interface DeleteTodoApiProps {
   id: number;
 }
 
-export default async function DeleteTodoApi({ id }: DeleteTodoApiProps) {
+export default async function deleteTodoApi({ id }: DeleteTodoApiProps) {
   const accessToken = localStorage.getItem(TOKEN_KEY);
   if (accessToken) {
     const { data } = await axios.delete<DeleteTodoApiRes>(
