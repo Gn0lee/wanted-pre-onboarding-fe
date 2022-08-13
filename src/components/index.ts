@@ -1,6 +1,6 @@
 import { Header, Footer } from './layout';
 
-import { TextInput, Button, Modal } from './common';
+import { TextInput, Button, Modal, ConfirmModal } from './common';
 
 import { SignInUpperContent, SignInInput, SignUpInput } from './auth';
 
@@ -18,4 +18,5 @@ export {
   TodoComponent,
   TodoList,
   Modal,
+  ConfirmModal,
 };

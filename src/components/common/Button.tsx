@@ -15,6 +15,7 @@ export interface ButtonProps extends ButtonStyleProps {
   children?: React.ReactNode;
   disabled?: boolean;
   onClick?: React.MouseEventHandler;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 /**
@@ -29,12 +30,14 @@ export default function Button({
   color,
   onClick,
   borderColor,
+  type,
 }: ButtonProps) {
   return (
     <button
       css={buttonSt({ width, height, backgroundColor, color, borderColor })}
       disabled={disabled}
       onClick={onClick}
+      type={type}
     >
       {children}
     </button>

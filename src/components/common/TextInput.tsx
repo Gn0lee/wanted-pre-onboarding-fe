@@ -27,6 +27,7 @@ export default function TextInput({
   width = '100%',
   validation = 'none',
   onChange = () => {},
+  height = '3rem',
 }: TextInputProps) {
   return (
     <div css={containerCss(width)}>
@@ -35,7 +36,7 @@ export default function TextInput({
           <div css={labelCss}>{label}</div>
         </div>
       )}
-      <div css={inputWrapCss}>
+      <div css={inputWrapCss(height)}>
         <input
           type={valueType}
           css={inputSt}
@@ -44,21 +45,19 @@ export default function TextInput({
           onChange={onChange}
         />
       </div>
-      {helpText && <div css={helpTextCss({ validation })}>{helpText}</div>}
+      {helpText && <div css={helpTextCss(validation)}>{helpText}</div>}
     </div>
   );
-}
-export interface StatusProps {
-  validation?: 'none' | 'passed' | 'failed';
-  size?: 'large' | 'medium' | 'small';
 }
 
 const containerCss = (width: string) => css`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  box-sizing: border-box;
+
   width: ${width};
+
+  box-sizing: border-box;
 `;
 
 const labelWrapperCss = css`
@@ -75,9 +74,11 @@ const labelCss = css`
   width: 100%;
 `;
 
-const inputWrapCss = css`
+const inputWrapCss = (height: string) => css`
   position: relative;
+
   width: 100%;
+  height: ${height};
 `;
 
 const inputSt = css`
@@ -89,7 +90,7 @@ const inputSt = css`
   padding-right: 1rem;
 
   width: 100%;
-  height: 3rem;
+  height: 100%;
 
   border: 1px solid #d1cfc9;
   border-radius: 8px;
@@ -106,7 +107,7 @@ const inputSt = css`
   }
 `;
 
-const helpTextCss = ({ validation }: StatusProps) => css`
+const helpTextCss = (validation: 'none' | 'passed' | 'failed') => css`
   margin-top: 0.5rem;
   color: #7d7d78;
   font-size: 0.875rem;
