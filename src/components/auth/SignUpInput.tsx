@@ -19,6 +19,7 @@ import {
 } from 'utils';
 /**
  * description: 이메일, 비밀번호 입력 컴포넌트
+ * todo: 로컬스토리지 토큰 검사 로직 추가
  */
 export default function SignUpInput() {
   const {
@@ -42,7 +43,7 @@ export default function SignUpInput() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleClickSignUpBtn = async () => {
+  const handleSubmit = async () => {
     try {
       const res = await signUpApi({ email, password });
 
@@ -66,7 +67,13 @@ export default function SignUpInput() {
   }, [isEmailValid, isPasswordValid]);
 
   return (
-    <div css={inputWrapSt}>
+    <form
+      css={inputWrapSt}
+      onSubmit={e => {
+        e.preventDefault();
+        handleSubmit();
+      }}
+    >
       <TextInput
         label="email"
         valueType="text"
@@ -74,6 +81,7 @@ export default function SignUpInput() {
         helpText={emailHelpTxt}
         validation={emailValidation}
         onChange={handleChangeEmail}
+        height="3rem"
       />
       <TextInput
         label="password"
@@ -82,6 +90,7 @@ export default function SignUpInput() {
         value={password}
         helpText={passwordHelpTxt}
         onChange={handleChangePassword}
+        height="3rem"
       />
       <Button
         width="100%"
@@ -89,11 +98,11 @@ export default function SignUpInput() {
         height="3rem"
         color="#FAFAFA"
         disabled={btnDisable}
-        onClick={handleClickSignUpBtn}
+        type="submit"
       >
         회원가입
       </Button>
-    </div>
+    </form>
   );
 }
 

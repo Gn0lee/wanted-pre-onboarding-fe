@@ -19,8 +19,8 @@ import {
 } from 'utils';
 
 /**
- * author: Gn0
  * description: 이메일, 비밀번호 정규식 검사에 따른 validation 변경, 클릭시 signin api 호출
+ * todo: 로컬스토리지 토큰 검사 로직 추가
  */
 export default function SignInInput() {
   const {
@@ -44,7 +44,7 @@ export default function SignInInput() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleClickSignInBtn = async () => {
+  const handleSubmit = async () => {
     try {
       const res = await signInApi({ email, password });
 
@@ -67,7 +67,13 @@ export default function SignInInput() {
   }, [isEmailValid, isPasswordValid]);
 
   return (
-    <div css={inputWrapSt}>
+    <form
+      css={inputWrapSt}
+      onSubmit={e => {
+        e.preventDefault();
+        handleSubmit();
+      }}
+    >
       <TextInput
         label="email"
         valueType="text"
@@ -75,6 +81,7 @@ export default function SignInInput() {
         helpText={emailHelpTxt}
         validation={emailValidation}
         onChange={handleChangeEmail}
+        height="3rem"
       />
       <TextInput
         label="password"
@@ -83,6 +90,7 @@ export default function SignInInput() {
         value={password}
         helpText={passwordHelpTxt}
         onChange={handleChangePassword}
+        height="3rem"
       />
       <Button
         width="100%"
@@ -90,11 +98,11 @@ export default function SignInInput() {
         height="3rem"
         color="#FAFAFA"
         disabled={btnDisable}
-        onClick={handleClickSignInBtn}
+        type="submit"
       >
         로그인
       </Button>
-    </div>
+    </form>
   );
 }
 

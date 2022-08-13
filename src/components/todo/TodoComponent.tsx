@@ -4,20 +4,30 @@ import React, { useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlineCheck, AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
+import {
+  AiOutlineCheck,
+  AiOutlineDelete,
+  AiOutlineEdit,
+  AiOutlineSave,
+  AiOutlineCloseCircle,
+} from 'react-icons/ai';
 
-import { Modal, Button } from 'components';
-import { deleteTodoApi } from 'api';
-import { deleteTodo } from 'redux/todoSlice';
-import { Todo, DeleteTodoApiError } from 'types';
+import { ConfirmModal, TextInput } from 'components';
+import { deleteTodoApi, updateTodoApi } from 'api';
+import { deleteTodo, updateTodo } from 'redux/todoSlice';
+import { Todo, DeleteTodoApiError, UpdateTodoApiError } from 'types';
 import { isAxiosError } from 'utils';
 
 /**
  * description: 할일 컴포넌트
- * todo: 수정 클릭시 수정모드 변환, 수정 api 연결, 수정 성공 시 할일 리스트 갱신
  */
 export default function TodoComponent({ id, todo, isCompleted, userId }: Todo) {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [isUpdateModalVisible, setIsUpdateModalVisible] = useState(false);
+  const [isUpdateMode, setIsUpdateMode] = useState(false);
+
+  const [enteredIsCompleted, setEnteredIsCompleted] = useState(isCompleted);
+  const [enteredTodo, setEnteredTodo] = useState(todo);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,13 +36,32 @@ export default function TodoComponent({ id, todo, isCompleted, userId }: Todo) {
     setIsDeleteModalVisible(true);
   };
 
+  const handleClickEditIcon = () => {
+    setIsUpdateMode(true);
+  };
+
+  const handleClickCloseIcon = () => {
+    setEnteredIsCompleted(isCompleted);
+    setEnteredTodo(todo);
+    setIsUpdateMode(false);
+  };
+
+  const handleClickSaveIcon = () => {
+    setIsUpdateModalVisible(true);
+  };
+
   const handleClickDeleteModalCancelBtn = () => {
     setIsDeleteModalVisible(false);
+  };
+
+  const handleClickUpdateModalCancelBtn = () => {
+    setIsUpdateModalVisible(false);
   };
 
   const handleClickDeleteModalOkBtn = async () => {
     try {
       await deleteTodoApi({ id });
+      setIsDeleteModalVisible(false);
       dispatch(deleteTodo(id));
     } catch (err) {
       if (isAxiosError<DeleteTodoApiError>(err) && err.response) {
@@ -45,50 +74,89 @@ export default function TodoComponent({ id, todo, isCompleted, userId }: Todo) {
     }
   };
 
+  const handleClickUpdateModalOkBtn = async () => {
+    try {
+      const res = await updateTodoApi({
+        todo: enteredTodo,
+        isCompleted: enteredIsCompleted,
+        id,
+      });
+      setIsUpdateModalVisible(false);
+      dispatch(updateTodo(res));
+      setIsUpdateMode(false);
+    } catch (err) {
+      if (isAxiosError<UpdateTodoApiError>(err) && err.response) {
+        alert(err.response.data.message);
+      }
+
+      if (err instanceof Error && err.message === 'no token') {
+        navigate('/');
+      }
+    }
+  };
+
+  const handleChangeIsCompleted: React.ChangeEventHandler = e => {
+    setEnteredIsCompleted(prev => !prev);
+  };
+
+  const handleChangeTodo: React.ChangeEventHandler<HTMLInputElement> = e => {
+    setEnteredTodo(e.target.value);
+  };
+
+  if (!isUpdateMode)
+    return (
+      <div css={todoContainerSt}>
+        <div css={iconWrapSt}>
+          {isCompleted && <AiOutlineCheck color="#24A147" size={25} />}
+        </div>
+        <div css={descrpSt(isCompleted)}>{todo}</div>
+        <div css={editDeleteWrapSt}>
+          <AiOutlineEdit size={25} onClick={handleClickEditIcon} />
+          <AiOutlineDelete size={25} onClick={handleClickDeleteIcon} />
+        </div>
+        <ConfirmModal
+          visible={isDeleteModalVisible}
+          handleClickCancelBtn={handleClickDeleteModalCancelBtn}
+          handleClickOkBtn={handleClickDeleteModalOkBtn}
+          body="정말로 삭제하시겠습니까?"
+          okString="삭제"
+        />
+      </div>
+    );
+
   return (
     <div css={todoContainerSt}>
       <div css={iconWrapSt}>
-        {isCompleted && <AiOutlineCheck color="#24A147" size={25} />}
+        <input
+          type="checkbox"
+          checked={enteredIsCompleted}
+          onChange={handleChangeIsCompleted}
+          css={checkBoxSt}
+        />
       </div>
-      <div css={descrpSt(isCompleted)}>{todo}</div>
+      <TextInput
+        value={enteredTodo}
+        height="2rem"
+        onChange={handleChangeTodo}
+      />
       <div css={editDeleteWrapSt}>
-        <AiOutlineEdit size={25} />
-        <AiOutlineDelete size={25} onClick={handleClickDeleteIcon} />
+        <AiOutlineSave size={25} onClick={handleClickSaveIcon} />
+        <AiOutlineCloseCircle size={25} onClick={handleClickCloseIcon} />
       </div>
-      <Modal
-        visible={isDeleteModalVisible}
-        footer={
-          <div css={modalBtnWrapSt}>
-            <Button
-              backgroundColor="#FAFAFA"
-              color="#122E99"
-              borderColor="#122E99"
-              width="100%"
-              height="100%"
-              onClick={handleClickDeleteModalCancelBtn}
-            >
-              취소
-            </Button>
-            <Button
-              backgroundColor="#122E99"
-              color="#FAFAFA"
-              width="100%"
-              height="100%"
-              onClick={handleClickDeleteModalOkBtn}
-            >
-              삭제
-            </Button>
-          </div>
-        }
-      >
-        <div css={modalBodySt}>정말로 삭제하시겠습니까?</div>
-      </Modal>
+      <ConfirmModal
+        visible={isUpdateModalVisible}
+        body="Todo를 변경하시겠습니까?"
+        okString="저장"
+        handleClickCancelBtn={handleClickUpdateModalCancelBtn}
+        handleClickOkBtn={handleClickUpdateModalOkBtn}
+      />
     </div>
   );
 }
 
 const todoContainerSt = css`
   display: flex;
+  align-items: center;
 
   width: 100%;
   height: 3rem;
@@ -137,21 +205,6 @@ const editDeleteWrapSt = css`
   }
 `;
 
-const modalBodySt = css`
-  margin: 1rem 0rem;
-
+const checkBoxSt = css`
   width: 100%;
-
-  color: #292929;
-  font-weight: 700;
-  font-size: 16px;
-  text-align: center;
-`;
-
-const modalBtnWrapSt = css`
-  display: flex;
-  gap: 0.5rem;
-
-  width: 100%;
-  height: 2rem;
 `;
