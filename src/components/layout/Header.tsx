@@ -11,7 +11,6 @@ import { resetTodos } from 'redux/todoSlice';
 import { TOKEN_KEY } from 'utils';
 /**
  * description: 헤더 컴포넌트
- * todo: 로그아웃 아이콘 및 동작 추가
  */
 export default function Header() {
   const dispatch = useDispatch();
@@ -44,7 +43,7 @@ const containerSt = css`
 
   background-color: #fafafa;
 
-  &:first-child {
+  &:first-of-type {
     color: #1c4aff;
     font-size: 1.5rem;
     font-weight: 700;

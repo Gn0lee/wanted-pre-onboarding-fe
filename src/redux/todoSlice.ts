@@ -22,9 +22,13 @@ const AccountInfoSlice = createSlice({
     createTodo: (state, actions: PayloadAction<Todo>) => {
       return { todos: state.todos.concat(actions.payload) };
     },
+    deleteTodo: (state, actions: PayloadAction<number>) => {
+      return { todos: state.todos.filter(todo => todo.id !== actions.payload) };
+    },
   },
 });
 
-export const { setTodos, createTodo, resetTodos } = AccountInfoSlice.actions;
+export const { setTodos, createTodo, resetTodos, deleteTodo } =
+  AccountInfoSlice.actions;
 
 export default AccountInfoSlice.reducer;

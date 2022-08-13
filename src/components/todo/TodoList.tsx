@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { css, jsx } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +16,6 @@ import { TodoComponent } from 'components';
 
 /**
  * description: 할일 컨테이너 컴포넌트
- * todo: userId dispatch
  */
 export default function TodoList() {
   const { todos } = useSelector((state: ReduxState) => state.todoData);
