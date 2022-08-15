@@ -1,11 +1,21 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { css, jsx } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
 
 import { SignInUpperContent, SignInInput } from 'components';
+import { TOKEN_KEY } from 'utils';
 
 export default function SignInPage() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem(TOKEN_KEY);
+
+    if (token) navigate('/todo');
+  }, []);
+
   return (
     <div css={containerSt}>
       <SignInUpperContent />
