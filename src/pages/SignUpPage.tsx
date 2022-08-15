@@ -1,11 +1,21 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { SignUpInput } from 'components';
+import { useNavigate } from 'react-router-dom';
+import { TOKEN_KEY } from 'utils';
 
 export default function SignUpPage() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem(TOKEN_KEY);
+
+    if (token) navigate('/todo');
+  }, []);
+
   return (
     <div css={containerSt}>
       <h1>회원가입</h1>

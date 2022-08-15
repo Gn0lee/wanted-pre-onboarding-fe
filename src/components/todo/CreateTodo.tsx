@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import React, { MouseEventHandler, useState } from 'react';
+import React, { useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -30,7 +30,7 @@ export default function CreateTodo() {
   const handleClickCreate = async () => {
     try {
       const res = await createTodoApi(todo);
-
+      setTodo('');
       dispatch(createTodo({ ...res, userId }));
     } catch (err) {
       if (isAxiosError<CreateTodoApiError>(err) && err.response) {
@@ -45,7 +45,7 @@ export default function CreateTodo() {
 
   return (
     <div css={createTodoWrapSt}>
-      <TextInput valueType="text" onChange={handleChangeTodo} />
+      <TextInput valueType="text" onChange={handleChangeTodo} value={todo} />
       <Button
         width="6rem"
         backgroundColor="#122E99"
